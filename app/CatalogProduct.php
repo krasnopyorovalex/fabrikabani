@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string $is_published
  * @property int $pos
  * @property int $on_request
+ * @property int $not_include_delivery
+ * @property string $props
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Catalog $catalog

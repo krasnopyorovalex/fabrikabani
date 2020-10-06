@@ -131,6 +131,10 @@ $(function() {
         CKEDITOR.replace('editor-props');
     }
 
+    if($('#full-props').length) {
+        CKEDITOR.replace('full-props');
+    }
+
     var tabsEditors = $("textarea.tabs__editor");
     if(tabsEditors) {
         tabsEditors.each(function(){

@@ -1,0 +1,64 @@
+.video-container {
+    background-color: #000;
+    width: 100%;
+    height: 170px;
+}
+.options-title {
+    cursor: pointer;
+    font-size: 17px;
+    border-bottom: 3px solid #fff;
+    background-color: #f4f4f4
+}
+.options-title i {
+    font-style: normal;
+}
+.item-description-wrap {
+    padding: 25px 80px;
+    background-color: #f9faf9;
+}
+.options-name {
+    font-weight: 700;
+    color: #454545;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+}
+.options-value {
+    color: #9b9b9b;
+    text-align: left;
+}
+.options-name:after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    height: 0;
+    margin-left: 5px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 1px solid #9b9b9b;
+}
+.container-options .row + .row {
+    margin-top: 0;
+}
+.container-options .font-weight-bold {
+    margin: 1rem 0 .2rem 0;
+    font-weight: 700;
+    text-align: left;
+    font-size: 16px;
+}
+.product-info-list-wrap {
+    width: 100%;
+    margin: 2rem 0 0 0;
+}
+.card-option-image-wrap {
+    margin: .2rem;
+    text-align: center;
+    flex-grow: 1
+}
+.card-option-image-wrap img {
+    width: 67px;
+}
+.card-option-name {
+    font-size: 13px;
+}

@@ -61,7 +61,7 @@
                                     Цена: {!! $product->getPrice() !!}
                                 @endif
 
-                                @if($product->priceNotIncludedDelivery() || $product->on_request)
+                                @if($product->priceNotIncludedDelivery() || $product->on_request || $product->not_include_delivery)
                                     *
                                 @endif
                             </div>
@@ -70,7 +70,7 @@
                             {!! $product->text !!}
                         </div>
                         <hr class="hr-gray-100">
-                        @if($product->priceNotIncludedDelivery())
+                        @if($product->priceNotIncludedDelivery() || $product->not_include_delivery)
                             <div class="p_info">*Стоимость указана без учета доставки</div>
                         @endif
                         @if($product->on_request)

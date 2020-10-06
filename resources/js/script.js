@@ -904,4 +904,18 @@ jQuery(document).ajaxError(function () {
         return false;
     });
 
+    $('.options-title').on('click', function () {
+        var t = $(this),
+            e = t.next();
+
+        if (e.hasClass("d-lg-block")) {
+            e.addClass("d-none").removeClass("d-lg-block");
+            t.find(".fa-chevron-down").addClass("d-none");
+            t.find(".fa-angle-right").removeClass("d-none");
+        } else {
+            e.removeClass("d-none").addClass("d-lg-block");
+            t.find(".fa-chevron-down").removeClass("d-none");
+            t.find(".fa-angle-right").addClass("d-none");
+        }
+    });
 })();
