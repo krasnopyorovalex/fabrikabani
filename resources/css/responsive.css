@@ -1,4 +1,3 @@
-
 @media (min-width:576px) {
     .box-comment-figure img {
         max-width: none
@@ -3186,6 +3185,9 @@
     }
     .card-corporate-2:last-child .card-title a.collapsed {
         border-bottom-color: #e1e1e1
+    }
+    .item-description-wrap {
+        padding: 25px 10px;
     }
 }
 @media (max-width:768px) {
