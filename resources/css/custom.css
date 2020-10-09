@@ -52,7 +52,7 @@
     margin: 2rem 0 0 0;
 }
 .card-option-image-wrap {
-    margin: .2rem;
+    margin: .2rem .2rem 1.2rem .2rem;
     text-align: center;
     flex-grow: 1
 }
@@ -64,4 +64,13 @@
 }
 .card-option-item h5 {
     font-size: 15px;
+}
+.card-option-price {
+    font-size: 17px;
+    font-weight: 700;
+    color: #76aa6f;
+    margin-top: 0;
+}
+.card-option-item-wrap .d-flex {
+    display: block !important;
 }
