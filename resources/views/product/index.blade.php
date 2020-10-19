@@ -61,7 +61,7 @@
                                     Цена: {!! $product->getPrice() !!}
                                 @endif
 
-                                @if($product->priceNotIncludedDelivery() || $product->on_request || $product->not_include_delivery)
+                                @if($product->priceNotIncludedDelivery() || $product->on_request || $product->not_include_delivery || $product->id === 16766)
                                     *
                                 @endif
                             </div>
@@ -75,6 +75,9 @@
                         @endif
                         @if($product->on_request)
                             <div class="p_info">*Стоимость указана без учета доставки в г. Севастополь</div>
+                        @endif
+                        @if($product->id === 16766)
+                            <div class="p_info">* Цена с доставкой в г. Севастополь</div>
                         @endif
                         @if(! $product->on_request)
                         <div class="group-xs group-middle">
