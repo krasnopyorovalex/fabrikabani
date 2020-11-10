@@ -222,6 +222,15 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/54461437" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TYE7MQ1JWY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-TYE7MQ1JWY');
+    </script>
     @endif
 </body>
 </html>
