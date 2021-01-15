@@ -113,10 +113,10 @@
                             </ul>
                             <div class="footer-classic-social">
                                 <div class="group-lg group-middle">
-                                    <p>Мы в соцсеятх</p>
+                                    <p>Мы в соцсетях</p>
                                     <div>
                                         <ul class="list-inline list-social list-inline-sm">
-                                            <li><a class="icon mdi mdi-youtube-play" href="https://www.youtube.com/channel/UCigKb7WaQgDwppkEODoFMuw" target="_blank"></a></li>
+                                            <li><a class="icon mdi mdi-youtube-play" href="https://www.youtube.com/channel/UCipnfNq3AluyL5QSqDaEggw" target="_blank"></a></li>
                                             <li><a class="icon mdi mdi-instagram" href="https://instagram.com/fabrikabani_sev?igshid=8ofb61cmbv8v" target="_blank"></a></li>
                                         </ul>
                                     </div>
