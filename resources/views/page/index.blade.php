@@ -67,7 +67,7 @@
         <div class="container">
             <div class="row row-30 align-items-center justify-content-center justify-content-xl-between">
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <div class="youtube-box" data-embed="zIFEGZRzkXc">
+                    <div class="youtube-box" data-embed="bklKNNONAu0">
                         <div class="btn-play"></div>
                     </div>
                     <div class="block-center text-center">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <div class="youtube-box" data-embed="VsD61yrHfMI">
+                    <div class="youtube-box" data-embed="ChS8GTMbr_c">
                         <div class="btn-play"></div>
                     </div>
                     <div class="block-center text-center">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <div class="youtube-box" data-embed="L_-_w791HsM">
+                    <div class="youtube-box" data-embed="W_elJGTKwlQ">
                         <div class="btn-play"></div>
                     </div>
                     <div class="block-center text-center">
