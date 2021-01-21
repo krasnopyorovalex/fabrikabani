@@ -17,12 +17,12 @@ class UploadImagesService
     /**
      * @var int
      */
-    private $widthThumb = 320;
+    private $widthThumb = 370;
 
     /**
      * @var int
      */
-    private $heightThumb = 320;
+    private $heightThumb = 370;
 
     /**
      * @var UploadedFile
