@@ -3191,6 +3191,9 @@
     }
 }
 @media (max-width:768px) {
+    .section .row .col-md-6:first-child .youtube-box {
+        margin: 0 0 1rem 0;
+    }
     .grid-demonstration * + p {
         margin-top: 6px
     }
