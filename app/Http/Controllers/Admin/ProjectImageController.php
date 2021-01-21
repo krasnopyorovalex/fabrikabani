@@ -57,6 +57,9 @@ class ProjectImageController extends Controller
      */
     public function store(CreateProjectImageRequest $request, $project): array
     {
+        $this->uploadGalleryImagesService->setHeightThumb(370);
+        $this->uploadGalleryImagesService->setWidthThumb(370);
+
         $image = $this->uploadGalleryImagesService->upload($request, 'project', $project, true);
         $this->dispatch(new CreateProjectImageCommand($image));
 
