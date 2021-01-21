@@ -231,21 +231,6 @@
 
         gtag('config', 'G-TYE7MQ1JWY');
     </script>
-    <!-- GetReview.io Widget BEGIN -->
-    <script type="text/javascript">
-        (function(g, e, t) {
-            e.GetReviewWidgetID = 'bJYoYQ7kMTFCZukn';
-            var s = g.createElement('script');
-            e[t] = e[t] || function() {
-                (e[t].queue = e[t].queue || []).push(arguments);
-            };
-            s.async = true;
-            s.charset = 'UTF-8';
-            s.src = 'https://app.getreview.io/static/bundle.js';
-            if (g.head) { g.head.appendChild(s); }
-        })(document, window, 'GetReview');
-    </script>
-    <!-- GetReview.io Widget END -->
     @endif
 </body>
 </html>
