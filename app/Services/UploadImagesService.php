@@ -119,7 +119,7 @@ class UploadImagesService
     {
         (new ImageManager())
             ->make($this->image)
-            ->resize($this->widthThumb, $this->heightThumb)
+            ->fit($this->widthThumb, $this->heightThumb)
             ->save(public_path('storage/' . $this->entity . '/' . $this->entityId .'/' . $this->getImageHashName() . '_thumb.' . $this->getExt()));
     }
 
