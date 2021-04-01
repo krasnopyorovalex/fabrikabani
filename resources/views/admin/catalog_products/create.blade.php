@@ -43,6 +43,8 @@
                             @input(['name' => 'price', 'label' => 'Цена', 'defaultValue' => 0])
 
                             @input(['name' => 'alias', 'label' => 'Alias'])
+                            @input(['name' => 'measure', 'label' => 'Мера возле цены'])
+
                             @imageInput(['name' => 'image', 'type' => 'file', 'label' => 'Выберите изображение на компьютере'])
                             @textarea(['name' => 'text', 'label' => 'Текст'])
                             @textarea(['name' => 'props', 'label' => 'Текст', 'id' => 'full-props'])

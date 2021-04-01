@@ -58,10 +58,10 @@
                                 @if($product->on_request)
                                     <a href="#form__subscribe" class="to-form__subscribe">Запросить стоимость</a>
                                 @else
-                                    Цена: {!! $product->getPrice() !!}
+                                    Цена: {!! $product->getPrice() !!}@if($product->measure)/{!! $product->measure !!} @endif
                                 @endif
 
-                                @if($product->priceNotIncludedDelivery() || $product->on_request || $product->not_include_delivery || $product->id === 16766)
+                                @if($product->priceNotIncludedDelivery() || $product->on_request || $product->not_include_delivery || $product->id === 16766 || $product->category_id === 298)
                                     *
                                 @endif
                             </div>
@@ -76,7 +76,7 @@
                         @if($product->on_request)
                             <div class="p_info">*Стоимость указана без учета доставки в г. Севастополь</div>
                         @endif
-                        @if($product->id === 16766)
+                        @if($product->id === 16766 || $product->category_id === 298)
                             <div class="p_info">* Цена с доставкой в г. Севастополь</div>
                         @endif
                         @if(! $product->on_request)

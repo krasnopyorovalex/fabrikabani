@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+    web:
+        build:
+            context: docker
+            dockerfile: nginx/Dockerfile
+        volumes:
+            - ./:/app
+        ports:
+            - "80:80"
+
+    php-fpm:
+        build:
+            context: docker
+            dockerfile: php-fpm/Dockerfile
+        volumes:
+            - ./:/app
+
+    php-cli:
+        build:
+            context: docker
+            dockerfile: php-cli/Dockerfile
+        volumes:
+            - ./:/app
+    mariadb:
+        image: mariadb:10.5.9-focal
+        environment:
+            MYSQL_USER: root
+            MYSQL_ROOT_PASSWORD: toor
+        volumes:
+            - mariadb:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+volumes:
+    mariadb:

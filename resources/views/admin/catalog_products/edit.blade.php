@@ -43,6 +43,8 @@
 
                                         @input(['name' => 'alias', 'label' => 'Alias', 'entity' => $catalogProduct])
 
+                                        @input(['name' => 'measure', 'label' => 'Мера возле цены', 'entity' => $catalogProduct])
+
                                         @textarea(['name' => 'text', 'label' => 'Текст', 'entity' => $catalogProduct])
                                         @textarea(['name' => 'props', 'label' => 'Текст', 'id' => 'full-props', 'entity' => $catalogProduct])
 
