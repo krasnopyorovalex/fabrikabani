@@ -76,7 +76,7 @@
                         @if($product->on_request)
                             <div class="p_info">*Стоимость указана без учета доставки в г. Севастополь</div>
                         @endif
-                        @if($product->id === 16766 || $product->category_id === 298)
+                        @if($product->id === 16766 || $product->catalog_id === 298)
                             <div class="p_info">* Цена с доставкой в г. Севастополь</div>
                         @endif
                         @if(! $product->on_request)
