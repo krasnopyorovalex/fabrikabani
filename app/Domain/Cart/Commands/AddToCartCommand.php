@@ -37,7 +37,8 @@ class AddToCartCommand
 
         app('cart')->add($product->id, $product->name, $product->price, 1, [
             'image' => $product->image ? $product->image->path : false,
-            'url' => $product->url
+            'url' => $product->url,
+            'measure' => $product->measure
         ]);
 
         return $this->dispatch(new GetAllItemsCartQuery());

@@ -59,7 +59,7 @@
                                         @endif
                                         <a class="table-cart-link" href="{{ $item->attributes->url }}">{{ $item->name }}</a>
                                     </td>
-                                    <td>{{ number_format($item->price, 0, '.', ' ') }} &#8381;</td>
+                                    <td>{{ number_format($item->price, 0, '.', ' ') }} &#8381;@if($item->measure)/{!! $item->measure !!} @endif</td>
                                     <td>
                                         <div class="table-cart-stepper">
                                             <input class="form-input" type="number" data-zeros="false" value="{{ $item->quantity }}" min="1" max="20">
