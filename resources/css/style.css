@@ -14630,6 +14630,7 @@ h2.adh2 {
   width: 100px;
   height: 100px;
   margin: 0 .5rem 0 0;
+  object-fit: cover;
 }
 .with-preview a {
   display: flex;
