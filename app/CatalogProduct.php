@@ -139,6 +139,6 @@ class CatalogProduct extends Model
      */
     public function priceNotIncludedDelivery(): bool
     {
-        return ($this->catalog->parent && in_array($this->catalog->parent->id, [21,22,40,46], true)) || $this->catalog->id === 269;
+        return ($this->catalog->parent && in_array($this->catalog->parent->id, [21,22,40,46,278,280,281,283,286], true)) || in_array($this->catalog->id, [269,282]);
     }
 }

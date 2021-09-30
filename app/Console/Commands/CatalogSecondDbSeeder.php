@@ -38,8 +38,8 @@ class CatalogSecondDbSeeder extends Command
      */
     public function handle()
     {
-        $this->clearNbsp();
-        exit;
+        //$this->clearNbsp();
+        //exit;
         //$this->clear();
 
         $document = file_get_contents(self::BASE_URL);
@@ -53,7 +53,7 @@ class CatalogSecondDbSeeder extends Command
             $link = $node->filter('.product-item-title a')->first();
 
             return [
-                'name' => $link->text(),
+                'name' => preg_replace('/\s\s+/', ' ', $link->text()),
                 'link' => $link->attr('href'),
                 'image' => 'https://grilld.ru'.$image
             ];
@@ -70,11 +70,14 @@ class CatalogSecondDbSeeder extends Command
             $existsCatalog = Catalog::where('alias', str_slug($category['name']))->first();
 
             if ($existsCatalog) {
+                $this->info('Category exists - ' . $existsCatalog->name);
+
                 $this->parseItems($category['link'], $existsCatalog->id);
-                continue;
+                //continue;
             }
 
-            $this->parseCategory($category);
+            //$this->parseCategory($category);
+            break;
         }
 
         $this->info('Well done!');
@@ -226,23 +229,23 @@ class CatalogSecondDbSeeder extends Command
                 $video = preg_replace('/height="(.*?)"/', 'height="320px"', $video);
                 $textProps .= $video;
 
-                $existsCatalogProduct = CatalogProduct::where('alias', str_slug($name))
-                    ->where('catalog_id', $catalogId)
-                    ->first();
-
-                if ($existsCatalogProduct) {
-                    continue;
-                }
+//                $existsCatalogProduct = CatalogProduct::where('alias', str_slug(str_replace(' Grill`D', '', $name)))
+//                    ->where('catalog_id', $catalogId)
+//                    ->first();
+//
+//                if ($existsCatalogProduct) {
+//                    continue;
+//                }
 
                 $catalogProduct = new CatalogProduct();
                 $catalogProduct->catalog_id = $catalogId;
                 $catalogProduct->name = $name;
 
-                if (CatalogProduct::where('alias', str_slug($name))->exists()) {
-                    $catalogProduct->alias = str_slug($catalogProduct->name) .'-' . random_int(0,10);
-                } else {
-                    $catalogProduct->alias = str_slug($catalogProduct->name);
-                }
+                $exists = CatalogProduct::where('alias', str_slug(str_replace(' Grill`D', '', $name)))->exists();
+
+                $catalogProduct->alias = $exists
+                    ? str_slug($catalogProduct->name) .'-' . random_int(0,10)
+                    : str_slug($catalogProduct->name);
 
                 $catalogProduct->title = $catalogProduct->name . ' | Всё для бани';
                 $catalogProduct->description = $catalogProduct->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
@@ -250,7 +253,16 @@ class CatalogSecondDbSeeder extends Command
                 $catalogProduct->text = $text;
                 $catalogProduct->props = $textProps;
 
-                if ($catalogProduct->save() && $image) {
+                if ($exists) {
+                    $this->info('Название для обновления - '.$name);
+                    CatalogProduct::where('alias', str_slug(str_replace(' Grill`D', '', $name)))
+                        ->update([
+                            'price' => $price,
+                            'name' => $name
+                        ]);
+                } elseif ($catalogProduct->save() && $image) {
+                    $this->info('Сохранение: '.$name);
+
                     $imageNew = explode('/', $image);
 
                     $name = Str::random(40);

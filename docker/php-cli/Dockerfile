@@ -5,11 +5,17 @@ RUN apk add --no-cache autoconf g++ make \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable xdebug
 
-RUN apk add --no-cache postgresql-dev bash coreutils \
+RUN apk add --no-cache postgresql-dev bash coreutils freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+  docker-php-ext-configure gd --with-freetype --with-jpeg && \
+  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+  docker-php-ext-install -j${NPROC} gd && \
+  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
 
 RUN apk add --no-cache unzip
 

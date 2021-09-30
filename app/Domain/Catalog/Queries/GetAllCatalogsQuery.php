@@ -29,7 +29,7 @@ class GetAllCatalogsQuery
         $query = Catalog::with(['products'])->orderBy('pos');
 
         if ($this->excludeCatalog) {
-            return $query->where('id', '<>', $this->excludeCatalog->id)->get();
+            $query->where('id', '<>', $this->excludeCatalog->id);
         }
 
         return $query->get();
