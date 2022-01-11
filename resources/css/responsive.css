@@ -3354,6 +3354,20 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 0
     }
+    .generic-text .accordion-type-2-small .accordion-head-text {
+        font-size: 13px;
+    }
+    .generic-text {
+        padding: 0 15px;
+    }
+    .catalog-detail-tab-content {
+        padding: 0 15px;
+    }
+    .generic-text .accordion-type-2-small .item-accordion-wrapper .accordion-head .arrow_open {
+        min-width: 35px;
+        width: 35px;
+        height: 35px;
+    }
 }
 @media (min-width:576px) and (max-width:767px) {
     .footer-modern-list-2 {

@@ -73,7 +73,7 @@
                         @if($product->priceNotIncludedDelivery() || $product->not_include_delivery)
                             <div class="p_info">*Стоимость указана без учета доставки</div>
                         @endif
-                        @if($product->on_request)
+                        @if($product->on_request && !$product->not_include_delivery)
                             <div class="p_info">*Стоимость указана без учета доставки в г. Севастополь</div>
                         @endif
                         @if($product->id === 16766 || $product->catalog_id === 298)
