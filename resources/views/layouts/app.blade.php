@@ -53,9 +53,9 @@
                                         <img class="brand-logo-dark" src="{{ asset('images/logo.svg') }}" alt="Все для бани" title="Строительство бань, саун и хамамов"/>
                                     </a>
                                 </div>
-                                <a class="visible-xs mobile_phone" href="tel:+79787847093">
+                                <a class="visible-xs mobile_phone" href="tel:89789125067">
                                     <span class="icon mdi mdi-phone"></span>
-                                    +79787847093
+                                    8(978)9125067
                                 </a>
                             </div>
                             <div class="rd-navbar-nav-wrap">
@@ -73,9 +73,9 @@
 {{--                                    </a>--}}
 {{--                                </div>--}}
                                 <div>
-                                    <a href="tel:+79787847093" class="h-phone">
+                                    <a href="tel:89789125067" class="h-phone">
                                         <span class="fa-phone"></span>
-                                        +79787847093
+                                        8(978)9125067
                                     </a>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                 <li>
                                     <div class="unit unit-spacing-sm flex-column flex-md-row">
                                         <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
-                                        <div class="unit-body"><a href="tel:+79787847093">+79787847093</a></div>
+                                        <div class="unit-body"><a href="tel:89789125067">8(978)9125067</a></div>
                                     </div>
                                 </li>
                                 <li>
