@@ -97,19 +97,19 @@ class CatalogEightDbSeeder extends Command
                             $aliasChild .= '-pechi';
                         }
 
-                        if (!Catalog::where('alias', $aliasChild)->exists()) {
-                            $catalogChild = new Catalog();
-
-                            $catalogChild->name = $childName;
-                            $catalogChild->parent_id = $catalog->id;
-                            $catalogChild->alias = $aliasChild;
-                            $catalogChild->title = $catalogChild->name . ' | Всё для бани';
-                            $catalogChild->description = $catalogChild->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
-
-                            $catalogChild->save();
-                        } else {
+//                        if (!Catalog::where('alias', $aliasChild)->exists()) {
+//                            $catalogChild = new Catalog();
+//
+//                            $catalogChild->name = $childName;
+//                            $catalogChild->parent_id = $catalog->id;
+//                            $catalogChild->alias = $aliasChild;
+//                            $catalogChild->title = $catalogChild->name . ' | Всё для бани';
+//                            $catalogChild->description = $catalogChild->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
+//
+//                            $catalogChild->save();
+//                        } else {
                             $catalogChild = Catalog::where('alias', $aliasChild)->first();
-                        }
+//                        }
 
                         $this->parseCategory($catalogChild, $childUrl);
                         $this->parseCategory($catalogChild, $childUrl . '?PAGEN_1=2');
@@ -165,94 +165,110 @@ class CatalogEightDbSeeder extends Command
                 }
             }
 
-            if ($crawler->filter('.product-detail-gallery__link')->count()) {
-                $image = $crawler->filter('.product-detail-gallery__link')->first()->attr('href');
+            if ($crawler->filter('.prices_block .price_value')->count()) {
+                $price = trim($crawler->filter('.prices_block .price_value')->first()->html());
+                $price = preg_replace('/[^0-9]/', '', $price);
+
             }
 
-            if (!$image && $crawler->filter('.first_sku_picture')->count()) {
-                $image = $crawler->filter('.first_sku_picture')->first()->attr('href');
-            }
+            if (CatalogProduct::whereAlias(Str::slug($name))->exists()) {
+                $catProd = CatalogProduct::whereAlias(Str::slug($name))->first();
+                $this->info($catProd->name . ': ' . $catProd->price);
 
-            $fullText = '';
-            $text = '';
-            if ($crawler->filter('.tabs')->count()) {
-                $textDesc = trim($crawler->filter('#desc .content')->first()->html());
-                $textTchar = $crawler->filter('#tchar')->first()->html();
-                $textExp = $crawler->filter('#exp')->first()->html();
+                $catProd->update(['price' => $price]);
 
-                $text = preg_replace("!<a.*?href=\"?'?([^ \"'>]+)\"?'?.*?>(.*?)</a>!is", '$2',  $textDesc);
-                $textTchar = preg_replace('/\s\s+/', ' ', trim($textTchar));
-                $textExp = preg_replace('/\s\s+/', ' ', trim($textExp));
-
-                $fullText = $textTchar . $textExp;
-            } elseif($crawler->filter('.product-chars .generic-text')->count()) {
-                $text = $crawler->filter('.product-chars .generic-text')->first()->html();
-            } elseif($crawler->filter('.catalog-element-custom-grid-main')->count()) {
-                $text = $crawler->filter('.catalog-element-custom-grid-main')->first()->html();
-            }
-
-            $catalogProduct = new CatalogProduct();
-            $catalogProduct->catalog_id = $catalogChild->id;
-            $catalogProduct->name = $name;
-            $catalogProduct->title = $catalogProduct->name . ' | Всё для бани';
-            $catalogProduct->description = $catalogProduct->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
-            $catalogProduct->price = str_replace(' ', '', $price);
-            $catalogProduct->text = $text;
-            $catalogProduct->not_include_delivery = 1;
-            $catalogProduct->on_request = ($price === 0);
-            $catalogProduct->props = $fullText;
-
-            if ($catalogProduct->name === 'Дровяная печь TK 550/2 Tulikivi для бани и сауны') {
-                return;
-            }
-
-            $alias = Str::slug($catalogProduct->name);
-
-            $existsProduct = CatalogProduct::where('alias', $alias)->exists();
-
-            if ($existsProduct) {
-                while (CatalogProduct::where('alias', $alias)->exists()) {
-                    $alias .= '-' . random_int(1, 1000);
+                $catProd->fresh();
+                $this->info($catProd->name . ': ' . $catProd->price);
+            } else {
+                if ($crawler->filter('.product-detail-gallery__link')->count()) {
+                    $image = $crawler->filter('.product-detail-gallery__link')->first()->attr('href');
                 }
-            }
 
-            $catalogProduct->alias = $alias;
+                if (!$image && $crawler->filter('.first_sku_picture')->count()) {
+                    $image = $crawler->filter('.first_sku_picture')->first()->attr('href');
+                }
 
-            if ($catalogProduct->save() && $image) {
-                $imageNew = explode('/', $image);
+                $fullText = '';
+                $text = '';
+                if ($crawler->filter('.tabs')->count()) {
+                    $textDesc = trim($crawler->filter('#desc .content')->first()->html());
+                    $textTchar = $crawler->filter('#tchar')->first()->html();
+                    $textExp = $crawler->filter('#exp')->first()->html();
 
-                $name = Str::random(40);
+                    $text = preg_replace("!<a.*?href=\"?'?([^ \"'>]+)\"?'?.*?>(.*?)</a>!is", '$2',  $textDesc);
+                    $textTchar = preg_replace('/\s\s+/', ' ', trim($textTchar));
+                    $textExp = preg_replace('/\s\s+/', ' ', trim($textExp));
 
-                $ext = explode('.', end($imageNew));
+                    $fullText = $textTchar . $textExp;
+                } elseif($crawler->filter('.product-chars .generic-text')->count()) {
+                    $text = $crawler->filter('.product-chars .generic-text')->first()->html();
+                } elseif($crawler->filter('.catalog-element-custom-grid-main')->count()) {
+                    $text = $crawler->filter('.catalog-element-custom-grid-main')->first()->html();
+                }
 
-                $path = Storage::path('public/tuliviki') . '/' . $name . '.' . end($ext);
+                $catalogProduct = new CatalogProduct();
+                $catalogProduct->catalog_id = $catalogChild->id;
+                $catalogProduct->name = $name;
+                $catalogProduct->title = $catalogProduct->name . ' | Всё для бани';
+                $catalogProduct->description = $catalogProduct->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
+                $catalogProduct->price = str_replace(' ', '', $price);
+                $catalogProduct->text = $text;
+                $catalogProduct->not_include_delivery = 1;
+                $catalogProduct->on_request = ($price === 0);
+                $catalogProduct->props = $fullText;
 
-                try {
-                    if (File::copy(self::BASE_URL . $image, $path)) {
-                        $newImage = new Image();
-                        $newImage->path = '/storage/tuliviki/' . $name . '.' . end($ext);
-                        $newImage->imageable_type = CatalogProduct::class;
-                        $newImage->imageable_id = $catalogProduct->id;
-                        $newImage->alt = $catalogProduct->name;
+                if ($catalogProduct->name === 'Дровяная печь TK 550/2 Tulikivi для бани и сауны') {
+                    return;
+                }
 
-                        if ($newImage->save()) {
-                            $im = (new ImageManager())->make($path);
+                $alias = Str::slug($catalogProduct->name);
 
-                            $imHeight = $im->height();
-                            $imWidth = $im->width();
+                $existsProduct = CatalogProduct::where('alias', $alias)->exists();
 
-                            $im->text('fabrikabani-krym.ru', abs($imWidth/2), abs($imHeight/2), static function($font) {
-                                $font->file(public_path('fonts/Arial-Black.ttf'));
-                                $font->size(22);
-                                $font->color(array(255, 255, 255, 0.6));
-                                $font->align('center');
-                                $font->valign('middle');
-                                $font->angle(45);
-                            })->save(Storage::path('public/tuliviki') . '/' . $name . '.' . end($ext));
-                        }
+                if ($existsProduct) {
+                    while (CatalogProduct::where('alias', $alias)->exists()) {
+                        $alias .= '-' . random_int(1, 1000);
                     }
-                } catch (\Exception $exception) {
-                    $this->info($exception->getMessage());
+                }
+
+                $catalogProduct->alias = $alias;
+
+                if ($catalogProduct->save() && $image) {
+                    $imageNew = explode('/', $image);
+
+                    $name = Str::random(40);
+
+                    $ext = explode('.', end($imageNew));
+
+                    $path = Storage::path('public/tuliviki') . '/' . $name . '.' . end($ext);
+
+                    try {
+                        if (File::copy(self::BASE_URL . $image, $path)) {
+                            $newImage = new Image();
+                            $newImage->path = '/storage/tuliviki/' . $name . '.' . end($ext);
+                            $newImage->imageable_type = CatalogProduct::class;
+                            $newImage->imageable_id = $catalogProduct->id;
+                            $newImage->alt = $catalogProduct->name;
+
+                            if ($newImage->save()) {
+                                $im = (new ImageManager())->make($path);
+
+                                $imHeight = $im->height();
+                                $imWidth = $im->width();
+
+                                $im->text('fabrikabani-krym.ru', abs($imWidth/2), abs($imHeight/2), static function($font) {
+                                    $font->file(public_path('fonts/Arial-Black.ttf'));
+                                    $font->size(22);
+                                    $font->color(array(255, 255, 255, 0.6));
+                                    $font->align('center');
+                                    $font->valign('middle');
+                                    $font->angle(45);
+                                })->save(Storage::path('public/tuliviki') . '/' . $name . '.' . end($ext));
+                            }
+                        }
+                    } catch (\Exception $exception) {
+                        $this->info($exception->getMessage());
+                    }
                 }
             }
         }

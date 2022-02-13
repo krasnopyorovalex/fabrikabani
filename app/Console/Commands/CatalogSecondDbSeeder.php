@@ -17,7 +17,7 @@ class CatalogSecondDbSeeder extends Command
 {
     use DispatchesJobs;
 
-    private const BASE_URL = 'https://grilld.ru/catalog/';
+    private const BASE_URL = 'https://grilld.ru/';
 
     /**
      * The name and signature of the console command.
@@ -42,42 +42,56 @@ class CatalogSecondDbSeeder extends Command
         //exit;
         //$this->clear();
 
+        $grilld = Catalog::where('id', 21)->with(['catalogs.products'])->firstOrFail();
+
+        foreach ($grilld->catalogs as $catalog) {
+            foreach ($catalog->products as $product) {
+                $product->delete();
+            }
+            $catalog->delete();
+        }
+        $grilld->delete();
+//        exit;
+
+        $grilld = new Catalog();
+        $grilld->name = 'GrillD';
+        $grilld->title = 'GrillD';
+        $grilld->description = 'GrillD';
+        $grilld->alias = 'grilld';
+        $grilld->text = 'банные печи';
+        $grilld->save();
+
         $document = file_get_contents(self::BASE_URL);
 
         $crawler = new Crawler($document);
 
-        $categories = $crawler->filter('.products-block .product-item')->each(static function (Crawler $node) {
+        $categories = $crawler->filter('.collection-list .collection-item')->each(static function (Crawler $node) {
 
-            $image = $node->filter('.product-item-img img')->first()->attr('src');
+            $image = $node->filter('.collection-img img')->first()->attr('data-src');
 
-            $link = $node->filter('.product-item-title a')->first();
+            $link = $node->filter('.collection-title a')->first();
 
             return [
                 'name' => preg_replace('/\s\s+/', ' ', $link->text()),
                 'link' => $link->attr('href'),
-                'image' => 'https://grilld.ru'.$image
+                'image' => $image
             ];
         });
 
-        $categories[] = [
-            'name' => 'Дымоходы торговой марки Grill\'D',
-            'link' => '/catalog/dymokhody_torgovoy_marki_grill_d/',
-            'image' => 'https://grilld.ru/bitrix/templates/aspro_next/images/product5.png'
-        ];
+        $categories = array_slice($categories,0, -2);
 
         foreach ($categories as $category) {
 
-            $existsCatalog = Catalog::where('alias', str_slug($category['name']))->first();
+            $existsCatalog = Catalog::where('alias', str_slug($category['name']))->where('parent_id', $grilld->id)->first();
 
             if ($existsCatalog) {
                 $this->info('Category exists - ' . $existsCatalog->name);
 
                 $this->parseItems($category['link'], $existsCatalog->id);
-                //continue;
+                continue;
             }
 
-            //$this->parseCategory($category);
-            break;
+            $this->parseCategory($category, $grilld->id);
         }
 
         $this->info('Well done!');
@@ -87,21 +101,21 @@ class CatalogSecondDbSeeder extends Command
      * @param array $category
      * @throws \Exception
      */
-    private function parseCategory(array $category): void
+    private function parseCategory(array $category, $id): void
     {
-        $this->saveCatalog($category);
+        $this->saveCatalog($category, $id);
     }
 
     /**
      * @param array $category
      * @throws \Exception
      */
-    private function saveCatalog(array $category): void
+    private function saveCatalog(array $category, $id): void
     {
         $catalog = new Catalog();
-        $catalog->parent_id = 21;
+        $catalog->parent_id = $id;
         $catalog->name = $category['name'];
-        $catalog->alias = str_slug($catalog->name);
+        $catalog->alias = str_slug($catalog->name.'-grilld');
         $catalog->title = $catalog->name . ' | Всё для бани';
         $catalog->description = $catalog->name . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93';
 
@@ -141,26 +155,26 @@ class CatalogSecondDbSeeder extends Command
 
         $crawler = new Crawler($document);
 
-        $links = $crawler->filter('.catalog_block.items.block_list a.thumb')->each(static function (Crawler $node) {
+        $links = $crawler->filter('.catalog .img-ratio__inner a')->each(static function (Crawler $node) {
             return $node->attr('href');
         });
 
         $this->saveItems($links, $catalogId);
 
-        $pages = $crawler->filter('.bottom_nav.block .module-pagination a.dark_link')->each(static function (Crawler $node) {
-            return $node->attr('href');
-        });
+        $lastPage = $crawler->filter('.pagination .pagination-items a');
 
-        if (count($pages)) {
-            foreach ($pages as $page) {
+        if (count($lastPage)) {
+            $lastPage = (int) $lastPage->last()->text();
 
-                $this->info('Page - '.$page);
+            for ($i = 2; $i <= $lastPage; $i++) {
 
-                $document = file_get_contents('https://grilld.ru'.$page);
+                $this->info('Page - '.$i);
+
+                $document = file_get_contents('https://grilld.ru'.$uri.'?page='.$i);
 
                 $crawler = new Crawler($document);
 
-                $links2 = $crawler->filter('.catalog_block.items.block_list a.thumb')->each(static function (Crawler $node) {
+                $links2 = $crawler->filter('.catalog .img-ratio__inner a')->each(static function (Crawler $node) {
                     return $node->attr('href');
                 });
 
@@ -173,61 +187,43 @@ class CatalogSecondDbSeeder extends Command
     {
         if (count($links)) {
             foreach ($links as $link) {
-
-                if (strstr($link, '/1271/')) {
-                    continue;
-                }
-
                 $document = file_get_contents('https://grilld.ru'.$link);
                 $crawler = new Crawler($document);
 
-                $name = $crawler->filter('h2.adh2')->first()->text();
+                $name = trim($crawler->filter('.product__title')->first()->html());
 
-                $priceString = $crawler->filter('.prices_block .price_value')->first();
-                if ( !$priceString->count()) {
-                    $priceString = $crawler->filter('.only_price .values_wrapper')->first();
+                $price = 0;
+                if (preg_match_all('#<script type="application/ld\+json">(.+?)</script>#su', $crawler->html(), $matches)) {
+                    $meta = json_decode(str_replace('\'', '"', $matches[1][0]), true);
+
+                    $price = (int) $meta['offers']['lowPrice'];
                 }
 
                 $this->info('https://grilld.ru'.$link);
 
-                $price = (int)str_replace(' ', '', $priceString->text());
-
                 $this->info('Цена: '.$price);
 
-                $image = $crawler->filter('#photo-0 a')->first();
-
-                if ( !$image->count()) {
-                    $image = $crawler->filter('.item_slider .offers_img > a')->first();
+                $imageHtml = $crawler->filter('.product__area-photo img.lazyload');
+                $image = '';
+                if ($imageHtml->count()) {
+                    $image = $imageHtml->first()->attr('data-src');
                 }
 
-                $image  = 'https://grilld.ru/'.$image->attr('href');
-
-                $text = $crawler->filter('.tabs_section #descr .cart__big-content');
-
-                if ($text->count()) {
-                    $text = '<p>'.$text->html().'</p>';
-                } else {
-                    $text = '';
+                $textHtml = $crawler->filter('.product__short-description .product__description-content.static-text');
+                $text = '';
+                if ($textHtml->count()) {
+                    $text = $textHtml->html();
                 }
 
                 $textProps = '';
-                $props = $crawler->filter('.tabs_section #props .cart__parametr');
+                $props = $crawler->filter('#product-characteristics')->first();
                 if ($props->count()) {
-                    $textProps = '<div class="row">'.$props->html().'</div>';
+                    $textProps = $props->html();
                 }
-                $textProps = preg_replace('/src="(.*?)"/', 'src="{image}"', $textProps);
-                $textProps = str_replace('cart__parametr-img', 'cart__parametr-img col-md-4 col-xs-12', $textProps);
-                $textProps = str_replace('cart__parametr-notice', 'cart__parametr-notice col-md-8 col-xs-12', $textProps);
-                $textProps = str_replace(' :', ':', $textProps);
-
-                $video = '';
-                $videoTab = $crawler->filter('.tabs_section #video .cart__video');
-                if ($videoTab->count()) {
-                    $video = '<div class="row">' . str_replace('cart__video-item','col-md-6 col-xs-12',$videoTab->html()). '</div>';
-                }
-                $video = preg_replace('/width="(.*?)"/', 'width="100%"', $video);
-                $video = preg_replace('/height="(.*?)"/', 'height="320px"', $video);
-                $textProps .= $video;
+//                $textProps = preg_replace('/src="(.*?)"/', 'src="{image}"', $textProps);
+//                $textProps = str_replace('cart__parametr-img', 'cart__parametr-img col-md-4 col-xs-12', $textProps);
+//                $textProps = str_replace('cart__parametr-notice', 'cart__parametr-notice col-md-8 col-xs-12', $textProps);
+//                $textProps = str_replace(' :', ':', $textProps);
 
 //                $existsCatalogProduct = CatalogProduct::where('alias', str_slug(str_replace(' Grill`D', '', $name)))
 //                    ->where('catalog_id', $catalogId)
@@ -241,10 +237,10 @@ class CatalogSecondDbSeeder extends Command
                 $catalogProduct->catalog_id = $catalogId;
                 $catalogProduct->name = $name;
 
-                $exists = CatalogProduct::where('alias', str_slug(str_replace(' Grill`D', '', $name)))->exists();
+                $exists = CatalogProduct::where('alias', str_slug($name))->exists();
 
                 $catalogProduct->alias = $exists
-                    ? str_slug($catalogProduct->name) .'-' . random_int(0,10)
+                    ? str_slug($catalogProduct->name) .'-' . random_int(0,1000000)
                     : str_slug($catalogProduct->name);
 
                 $catalogProduct->title = $catalogProduct->name . ' | Всё для бани';

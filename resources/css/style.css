@@ -14822,3 +14822,31 @@ h2.adh2 {
   margin: 2rem 0 0 0;
   max-width: 740px;
 }
+.product-properties {
+  width: 100%;
+}
+.product-properties .label-properties {
+  font-weight: 700;
+  margin: 0 0 2rem 0;
+  font-size: 22px;
+  text-align: left;
+}
+.properties-items {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 5rem;
+}
+.properties-items .property {
+  display: flex;
+}
+.properties-items .property .property-name {
+  text-align: left;
+  width: 100%;
+}
+.properties-items .property .delimiter {
+  display: none;
+}
+.properties-items .property .property-content {
+  width: 100%;
+  text-align: right;
+}

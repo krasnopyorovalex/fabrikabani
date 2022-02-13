@@ -48,22 +48,6 @@ class CatalogFiveDbSeeder extends Command
 //
 //            dispatch(new DeleteCatalogCommand($catalog->id));
 //        }
-//
-//        Catalog::create([
-//            'name' => 'Отопительные котлы',
-//            'title' => 'Отопительные котлы | Все для бани',
-//            'description' => 'Отопительные котлы' . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93',
-//            'alias' => Str::slug('Отопительные котлы теплодар'),
-//            'parent_id' => 46
-//        ]);
-//
-//        Catalog::create([
-//            'name' => 'Печи для бани и сауны',
-//            'title' => 'Печи для бани и сауны | Все для бани',
-//            'description' => 'Печи для бани и сауны' . ', выгодные предложения для Вас. Звоните по номеру телефона +7 (978) 784-70-93',
-//            'alias' => Str::slug('Печи для бани и сауны'),
-//            'parent_id' => 46
-//        ]);
 
 
         $document = file_get_contents(app_path('Console/Commands/data/teplodar2.html'));
@@ -75,6 +59,7 @@ class CatalogFiveDbSeeder extends Command
                 'link' => $node->attr('href')
             ];
         });
+
 
         $catalogId = 300;
         foreach ($products as $product) {
@@ -126,7 +111,7 @@ class CatalogFiveDbSeeder extends Command
             $catalogProduct->catalog_id = $catalogId;
             $catalogProduct->name = $name;
 
-            $alias = 'teplodar-' . str_slug($name);
+            $alias = 'teplodar-' . Str::slug($name);
 
             if (CatalogProduct::where('alias', $alias)->exists()) {
                 continue;
