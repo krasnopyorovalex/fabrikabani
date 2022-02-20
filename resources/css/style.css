@@ -14879,3 +14879,17 @@ h2.adh2 {
 .single-product-image {
   position: relative;
 }
+.product-item-detail-properties {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  max-width: 560px;
+  color: #a5a5a5;
+  font-size: 14px;
+}
+.product-item-detail-properties dt {
+  float: left;
+  clear: both;
+  font-weight: normal;
+  flex-basis: auto;
+}
