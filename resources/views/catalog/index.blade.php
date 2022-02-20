@@ -81,7 +81,7 @@
                                             @endif
                                         </div>
                                         @if($product->label)
-                                        <span class="product-badge product-badge-{{ $product->label }}">{{ $product->getLabelName($product->label) }}</span>
+                                        <span class="product-badge product-badge-sale">{{ $product->getLabelName($product->label) }}</span>
                                         @endif
                                         <div class="product-button-wrap">
                                             <div class="product-button">

@@ -14872,3 +14872,6 @@ h2.adh2 {
   border-bottom: 1px dashed #e1e2e5;
   margin: 0 8px;
 }
+.single-product-image {
+  position: relative;
+}
