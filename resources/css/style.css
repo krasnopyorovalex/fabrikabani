@@ -14850,3 +14850,25 @@ h2.adh2 {
   width: 100%;
   text-align: right;
 }
+.ty-product-feature {
+  padding: 10px;
+  text-align: left;
+  display: flex;
+  width: 50%;
+}
+.ty-product-feature__label {
+  flex-grow: 1;
+}
+.ty-product-feature__value {
+  display: inline-block;
+  margin-left: 5px;
+}
+.ty-product-feature__label:after {
+  display: block;
+  content: "";
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 0;
+  flex: 1 1 0;
+  border-bottom: 1px dashed #e1e2e5;
+  margin: 0 8px;
+}

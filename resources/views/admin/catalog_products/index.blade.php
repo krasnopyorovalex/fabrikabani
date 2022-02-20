@@ -19,6 +19,7 @@
                 <th>#</th>
                 <th>Название</th>
                 <th>Категория</th>
+                <th>Цена</th>
                 <th>Обновлена</th>
                 <th></th>
             </tr>
@@ -29,6 +30,7 @@
                     <td><span class="label label-primary">{{ request('page') > 1 ? request('page') * 50 - 50 + $loop->iteration : $loop->iteration }}</span></td>
                     <td>{{ $catalogProduct->name }}</td>
                     <td><span class="label label-primary bg-teal-400">{{ $catalogProduct->catalog->name }}</span></td>
+                    <td><span class="label label-primary bg-brown-400"><b>{!! $catalogProduct->getPrice() !!}</b></span></td>
                     <td><span class="label label-primary">{{ $catalogProduct->updated_at->diffForHumans() }}</span></td>
                     <td>
                         <div>

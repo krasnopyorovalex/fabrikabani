@@ -47,6 +47,9 @@
                     @if($product->image)
                     <div class="single-product-image">
                         <img src="{{ $product->image->path }}" alt="{{ $product->image->alt }}" title="{{ $product->image->title }}">
+                        @if($product->label)
+                            <span class="product-badge product-badge-sale">{{ $product->getLabelName($product->label) }}</span>
+                        @endif
                     </div>
                     @endif
                 </div>

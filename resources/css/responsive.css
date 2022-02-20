@@ -3368,6 +3368,9 @@
         width: 35px;
         height: 35px;
     }
+    .ty-product-feature {
+        width: 100%;
+    }
 }
 @media (min-width:576px) and (max-width:767px) {
     .footer-modern-list-2 {

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string|null $keywords
  * @property string $text
  * @property string $alias
+ * @property string $label
  * @property integer $price
  * @property string $is_published
  * @property int $pos
@@ -49,7 +50,15 @@ class CatalogProduct extends Model
     private const LABELS = [
         '' => 'Не выбрано',
         'sale' => 'Акция',
-        'new' => 'Новинка'
+        'new' => 'Новинка',
+        'grill' => 'Grill\'D',
+        'tulikivi' => 'Туликиви',
+        'ekm' => 'ЭКМ',
+        'teplodar' => 'Теплодар',
+        'koster' => 'Костёр',
+        'easysteam' => 'Easysteam',
+        'vezuviy' => 'Везувий',
+        'tis' => 'Теплов и Сухов'
     ];
 
     /**
