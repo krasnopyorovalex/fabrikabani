@@ -14893,3 +14893,10 @@ h2.adh2 {
   font-weight: normal;
   flex-basis: auto;
 }
+.product-item-detail-properties dd {
+  float: right;
+  margin-bottom: 3px;
+  margin-left: 5px;
+  color: #000;
+  flex-basis: auto;
+}
