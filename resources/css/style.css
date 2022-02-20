@@ -4605,6 +4605,10 @@ textarea.textarea-lg {
   pointer-events: none;
   z-index: -1
 }
+.product .product-badge {
+  top: 25px;
+  right: 30px;
+}
 .product-2 .product-figure {
   min-height: 220px
 }
@@ -4649,8 +4653,8 @@ textarea.textarea-lg {
   display: inline-block;
   position: absolute;
   text-align: center;
-  top: 25px;
-  right: 15px;
+  top: 20px;
+  right: 20px;
   padding: 5px 12px;
   font-size: 14px;
   line-height: 1;
