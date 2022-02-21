@@ -34,7 +34,7 @@ class UpdatePassword extends Command
 
         User::whereEmail($email)
             ->update([
-                'password' => Hash::make(Str::random(8))
+                'password' => Hash::make($password)
             ]);
 
         $this->info('Password updated for user ' . $email . ': ' . $password);
