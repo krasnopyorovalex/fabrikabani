@@ -24,11 +24,17 @@ class CatalogController extends Controller
 
         $catalogs = $this->dispatch(new GetAllCatalogsWithoutParentQuery());
 
-        $products = $catalog->products()->orderBy('price')->paginate();
+        $products = $catalog->products();
+
+        if ($catalog->id === 8) {
+            $products->orderBy('pos')->orderBy('price');
+        } else {
+            $products->orderBy('price');
+        }
 
         return view('catalog.index', [
             'catalog' => $catalog,
-            'products' => $products,
+            'products' => $products->paginate(),
             'catalogs' => $catalogs
         ]);
     }
