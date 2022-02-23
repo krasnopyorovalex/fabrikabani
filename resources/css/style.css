@@ -14904,19 +14904,17 @@ h2.adh2 {
   background: #eae1d8;
   margin: 1px 0;
   padding: 3px 11px;
+  display: flex;
 }
 .product-field .product-fields-title {
-  display: block;
-  float: left;
   text-align: left;
   max-width: 445px;
   font-weight: bold;
 }
 .product-field .product-field-display {
   display: block;
-  float: right;
   text-align: left;
-  width: 120px;
+  margin: 0 0 0 auto;
 }
 .productprice td, .productprice tr {
   border: 1px solid #444;
@@ -14928,6 +14926,7 @@ h2.adh2 {
   vertical-align: middle;
   border: 1px solid;
   min-width: 60px;
+  background-color: #444444;
 }
 .productprice td {
   min-width: 170px;
