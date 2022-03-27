@@ -67,19 +67,19 @@
         <div class="container">
             <div class="row row-30 align-items-center justify-content-center justify-content-xl-between">
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <video src="http://cdn.fabrikabani-krym.ru/video/reviews/Коммерческое СПА. Обзор. Севастополь. Крым.mp4" data-poster="http://cdn.fabrikabani-krym.ru/video/posters/kommercheskoe-spa.jpg" class="js-player"></video>
+                    <video src="//cdn.fabrikabani-krym.ru/video/reviews/Коммерческое СПА. Обзор. Севастополь. Крым.mp4" data-poster="//cdn.fabrikabani-krym.ru/video/posters/kommercheskoe-spa.jpg" class="js-player"></video>
                     <div class="block-center text-center">
                         <a class="button button-sm button-secondary button-zakaria" href="{{ route('page.show', ['alias' => 'services']) }}">Строительство бани и сауны</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <video src="http://cdn.fabrikabani-krym.ru/video/reviews/Печи Grill’D в Севастополе. Обзор комета Vega.mp4" data-poster="http://cdn.fabrikabani-krym.ru/video/posters/obzor-kometa-vega.jpg" class="js-player"></video>
+                    <video src="//cdn.fabrikabani-krym.ru/video/reviews/Печи Grill’D в Севастополе. Обзор комета Vega.mp4" data-poster="//cdn.fabrikabani-krym.ru/video/posters/obzor-kometa-vega.jpg" class="js-player"></video>
                     <div class="block-center text-center">
                         <a class="button button-sm button-secondary button-zakaria" href="{{ route('catalog.show', ['alias' => 'grilld']) }}">Печи GriilD</a>
                     </div>
                 </div>
                 <div class="col-md-4 col-lg-4 col-xs-12">
-                    <video src="http://cdn.fabrikabani-krym.ru/video/reviews/Фабрика Бань. Обзор Хамама в апартаментах. Севастополь . Крым.mp4" data-poster="http://cdn.fabrikabani-krym.ru/video/posters/hamam-v-appartamentah.jpg" class="js-player"></video>
+                    <video src="//cdn.fabrikabani-krym.ru/video/reviews/Фабрика Бань. Обзор Хамама в апартаментах. Севастополь . Крым.mp4" data-poster="//cdn.fabrikabani-krym.ru/video/posters/hamam-v-appartamentah.jpg" class="js-player"></video>
                     <div class="block-center text-center">
                         <a class="button button-sm button-secondary button-zakaria" href="{{ route('page.show', ['alias' => 'services']) }}#service_2">Строительство хамама</a>
                     </div>
