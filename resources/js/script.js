@@ -921,7 +921,6 @@ jQuery(document).ajaxError(function () {
 
     const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p, {
         'settings': [],
-        'controls': ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'airplay', 'fullscreen'],
-        'previewThumbnails': {'enabled': true}
+        'controls': ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'airplay', 'fullscreen']
     }));
 })();
