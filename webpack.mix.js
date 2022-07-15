@@ -17,6 +17,7 @@ mix.js('resources/js/script.js', 'public/js/app.min.js')
         'resources/css/fonts.css',
         'resources/css/style.css',
         'resources/css/custom.css',
-        'resources/css/responsive.css'
+        'resources/css/responsive.css',
+        'resources/css/plyr.css'
     ], 'public/css/app.min.css')
     .version();

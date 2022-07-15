@@ -53,9 +53,9 @@
                                         <img class="brand-logo-dark" src="{{ asset('images/logo.svg') }}" alt="Все для бани" title="Строительство бань, саун и хамамов"/>
                                     </a>
                                 </div>
-                                <a class="visible-xs mobile_phone" href="tel:89789125067">
+                                <a class="visible-xs mobile_phone" href="tel:+79787847093">
                                     <span class="icon mdi mdi-phone"></span>
-                                    8(978)9125067
+                                    +7 978 784-70-93
                                 </a>
                             </div>
                             <div class="rd-navbar-nav-wrap">
@@ -73,9 +73,9 @@
 {{--                                    </a>--}}
 {{--                                </div>--}}
                                 <div>
-                                    <a href="tel:89789125067" class="h-phone">
+                                    <a href="tel:+79787847093" class="h-phone">
                                         <span class="fa-phone"></span>
-                                        8(978)912-50-67
+                                        +7 978 784-70-93
                                     </a>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                 <li>
                                     <div class="unit unit-spacing-sm flex-column flex-md-row">
                                         <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
-                                        <div class="unit-body"><a href="tel:89789125067">8(978)912-50-67</a></div>
+                                        <div class="unit-body"><a href="tel:+79787847093">+7 978 784-70-93</a></div>
                                     </div>
                                 </li>
                                 <li>
@@ -205,6 +205,7 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/core.min.js') }}"></script>
+    <script src="{{ asset('js/plyr.js') }}"></script>
     <script src="{{ mix('js/app.min.js') }}"></script>
     @if(app()->environment('production'))
     <!-- Yandex.Metrika counter -->
@@ -231,34 +232,6 @@
 
         gtag('config', 'G-TYE7MQ1JWY');
     </script>
-    <!-- Rating Mail.ru counter -->
-    <script type="text/javascript">
-        var _tmr = window._tmr || (window._tmr = []);
-        _tmr.push({id: "3237300", type: "pageView", start: (new Date()).getTime(), pid: "USER_ID"});
-        (function (d, w, id) {
-            if (d.getElementById(id)) return;
-            var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
-            ts.src = "https://top-fwz1.mail.ru/js/code.js";
-            var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
-            if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
-        })(document, window, "topmailru-code");
-    </script><noscript><div>
-            <img src="https://top-fwz1.mail.ru/counter?id=3237300;js=na" style="border:0;position:absolute;left:-9999px;" alt="Top.Mail.Ru" />
-        </div></noscript>
-    <!-- //Rating Mail.ru counter -->
-
-    <!-- Rating@Mail.ru counter dynamic remarketing appendix -->
-    <script type="text/javascript">
-        var _tmr = _tmr || [];
-        _tmr.push({
-            type: 'itemView',
-            productid: 'VALUE',
-            pagetype: 'VALUE',
-            list: 'VALUE',
-            totalvalue: 'VALUE'
-        });
-    </script>
-    <!-- // Rating@Mail.ru counter dynamic remarketing appendix -->
     @endif
 </body>
 </html>
