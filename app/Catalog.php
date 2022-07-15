@@ -46,7 +46,7 @@ class Catalog extends Model
     /**
      * @var array
      */
-    protected $fillable = ['parent_id', 'name', 'title', 'description', 'text', 'alias', 'pos'];
+    protected $fillable = ['parent_id', 'name', 'title', 'description', 'text', 'alias', 'pos', 'bitrix_id', 'bitrix_parent_id'];
 
     /**
      * @return HasMany

@@ -14,7 +14,8 @@
         "laravel/tinker": "^1.0",
         "symfony/dom-crawler": "^4.3",
         "unisharp/laravel-ckeditor": "^4.7",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
