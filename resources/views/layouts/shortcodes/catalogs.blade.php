@@ -1,6 +1,6 @@
 <div class="row row-30 row-lg-50">
     @foreach ($catalogs as $item)
-        <div class="col-sm-4 col-md-3 col-lg-3 col-xs-12">
+        <div class="col-sm-4 col-md-3 col-lg-3 col-6">
         <article class="product">
             <div class="product-body">
                 @if($item->image)

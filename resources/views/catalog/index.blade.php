@@ -57,7 +57,7 @@
                     <div class="row row-30 row-lg-50">
                         @if($products)
                             @foreach($products as $product)
-                                <div class="col-sm-6 col-md-4 col-lg-6 col-xl-4">
+                                <div class="col-sm-6 col-md-4 col-lg-6 col-xl-4 col-6">
                                     <!-- Product-->
                                     <article class="product">
                                         <div class="product-body">
