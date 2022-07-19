@@ -26,12 +26,7 @@
                 <ul class="breadcrumbs-custom-path">
                     <li><a href="{{ route('page.show') }}">Главная</a></li>
                     <li><a href="{{ route('page.show', ['alias' => 'catalog']) }}">Каталог</a></li>
-                    @if($product->catalog->parent && $product->catalog->parent->parent)
-                        <li><a href="{{ route('catalog.show', ['alias' => $product->catalog->parent->parent->alias]) }}">{{ $product->catalog->parent->parent->name }}</a></li>
-                    @endif
-                    @if($product->catalog->parent)
-                        <li><a href="{{ route('catalog.show', ['alias' => $product->catalog->parent->alias]) }}">{{ $product->catalog->parent->name }}</a></li>
-                    @endif
+                    @includeWhen($product->catalog->parent, 'layouts.partials.breadcrumbs_item', ['catalog' => $product->catalog])
                     <li><a href="{{ route('catalog.show', ['alias' => $product->catalog->alias]) }}">{{ $product->catalog->name }}</a></li>
                     <li class="active">{{ $product->name }}</li>
                 </ul>

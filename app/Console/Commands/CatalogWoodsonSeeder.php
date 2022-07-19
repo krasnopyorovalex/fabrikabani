@@ -49,7 +49,7 @@ class CatalogWoodsonSeeder extends Command
 
         $this->parseProducts($catalog);
 
-        $this->info('Well done!');
+        //$this->info('Well done!');
 
         Log::info('Stop update: ' . date('m.d.Y H:i:s'));
     }
