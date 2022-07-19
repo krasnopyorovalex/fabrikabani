@@ -28,10 +28,10 @@ if (! function_exists('build_root_child_select')) {
 
         foreach ($collection as $item) {
             if (!$item['parent_id']) {
-                $returnedArray[] = $item;
+                $returnedArray[] = $item->only(['id', 'name']);
                 continue;
             }
-            $returnedArray['child_' . $item['parent_id']][] = $item;
+            $returnedArray['child_'.$item['parent_id']][] = $item->only(['id', 'name', 'parent_id']);
         }
 
         return build_options($returnedArray, $selected);
@@ -51,12 +51,14 @@ if (! function_exists('build_options')) {
     {
         $originArray = count($helpArray) ? $helpArray : $array;
         foreach ($array as $item) {
-            if (!is_array($item)) {
+            if (isset($item['id'])) {
+                $id = $item['id'];
+                $name = $item['name'];
 
-                $html .= '<option value="' . $item->id . '"' . ($selected == $item->id ? 'selected=""' : '') . '>' . $step . $item->name . '</option>' . PHP_EOL;
+                $html .= '<option value="' . $id . '"' . ($selected == $id ? 'selected=""' : '') . '>' . $step . $name . '</option>' . PHP_EOL;
 
-                if (isset($originArray['child_' . $item->id])) {
-                    $html = build_options($originArray['child_' . $item->id], $selected, $html, $step . '**', $array);
+                if (isset($originArray['child_' . $item['id']])) {
+                    $html = build_options($originArray['child_' . $item['id']], $selected, $html, $step . '**', $originArray);
                 }
             }
         }
