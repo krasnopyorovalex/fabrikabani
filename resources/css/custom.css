@@ -74,3 +74,12 @@
 .card-option-item-wrap .d-flex {
     display: block !important;
 }
+.product_text .door-description label {
+    display: flex;
+}
+.product_text .door-description .attr-text-product {
+    padding: 0 0 0 1rem;
+}
+.door-props-text {
+    text-align: left;
+}
